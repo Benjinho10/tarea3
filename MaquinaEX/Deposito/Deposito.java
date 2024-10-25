@@ -1,7 +1,6 @@
 package MaquinaEX.Deposito;
 import java.util.ArrayList;
 
-import
 /**
  * Clase genérica de un depósito de productos.
  *
