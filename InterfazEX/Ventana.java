@@ -12,8 +12,8 @@ class Ventana extends JFrame {
         JPanel panelCentro = new JPanel();
         panelCentro.setBackground(Color.LIGHT_GRAY);
         panelCentro.setLayout(new GridBagLayout());
-        JLabel etiqueta = new JLabel("Que pasa puto de mierda");
-        JButton boton = new JButton("CLICK");
+        JLabel etiqueta = new JLabel("prueba");
+        JButton boton = new JButton("ola");
 
         panelCentro.add(etiqueta);
         panelCentro.add(boton);
