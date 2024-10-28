@@ -17,7 +17,7 @@ public abstract class Moneda implements Comparable<Moneda> {
     /**
      * Constructor para la clase {@code Moneda}
      */
-   public public Moneda() {}
+   public Moneda() {}
 
     /**
      * Método abstracto que se implementa por las subclases para devolver
