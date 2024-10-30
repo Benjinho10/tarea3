@@ -1,25 +1,37 @@
 package InterfazEX;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 class Ventana extends JFrame {
     public Ventana() {
-        super();
-        this.setTitle("VENTANA PARA PROBAR");
-        this.setLayout(new BorderLayout());
+        super("Mi Ventana en Java");
 
-        JPanel panelCentro = new JPanel();
-        panelCentro.setBackground(Color.LIGHT_GRAY);
-        panelCentro.setLayout(new GridBagLayout());
-        JLabel etiqueta = new JLabel("prueba");
-        JButton boton = new JButton("ola");
+        // Configurar el tamaño de la ventana
+        this.setSize(400, 300);
 
-        panelCentro.add(etiqueta);
-        panelCentro.add(boton);
+        // Crear un panel con un layout de tipo BorderLayout
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
 
-        this.add(panelCentro, BorderLayout.CENTER);
-        this.setSize(700,900);
-        this.setVisible(true);
+        // Crear una instancia de la clase Botones
+        Botones botones = new Botones();
+
+        // Crear un panel para los botones
+        JPanel panelBotones = new JPanel();
+        panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS)); // Layout vertical
+
+        // Agregar los botones al panel de botones
+        panelBotones.add(botones.getBoton1());
+        panelBotones.add(botones.getBoton2());
+        panelBotones.add(botones.getBoton3());
+        panelBotones.add(botones.getBoton4());
+
+        // Agregar el panel de botones al panel principal
+        panel.add(panelBotones, BorderLayout.WEST);
+
+        // Agregar el panel principal a la ventana
+        this.add(panel);
     }
 }
+
