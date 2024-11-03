@@ -5,71 +5,81 @@ import java.awt.*;
 
 class Ventana extends JFrame {
     public Ventana() {
-        super("Maquina Expendedora - Tarea 3");
-        this.setSize(900, 700);
+        super("Máquina Expendedora - Tarea 3");
+        this.setSize(915, 700);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Creación del Panel Principal
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
-        // Configuración del panel izquierdo
         JPanel panelIzquierdo = new JPanel();
         panelIzquierdo.setLayout(new BorderLayout());
-        panelIzquierdo.add(new JLabel("Expendedor"));
-        panelIzquierdo.setPreferredSize(new Dimension(500, 500)); //Tamaño panel izquierdo
-        panelIzquierdo.setBackground(Color.LIGHT_GRAY); //Color panel izquierdo
+        panelIzquierdo.add(new JLabel("Expendedor"), BorderLayout.NORTH);
+        panelIzquierdo.setPreferredSize(new Dimension(500, 700));
+        panelIzquierdo.setBackground(Color.LIGHT_GRAY);
 
-        // Crear un JLayeredPane para apilar la imagen y los botones
         JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(600, 500)); // Tamaño del área de imagen y botones
+        layeredPane.setPreferredSize(new Dimension(600, 500));
 
-        // Imagen de fondo
-        ImageIcon iconoOriginal = new ImageIcon("Imagenes/expendedortarea3.png");
-        Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(400, 500, Image.SCALE_SMOOTH); // Ajusta el tamaño
+        ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/Imagenes/expendedortarea3.png"));
+        Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(400, 500, Image.SCALE_SMOOTH);
         JLabel etiquetaImagen = new JLabel(new ImageIcon(imagenEscalada));
-        etiquetaImagen.setBounds(50, 80, 400, 500); // Posición y tamaño de la imagen
+        etiquetaImagen.setBounds(50, 80, 400, 500);
 
-        // Agregar la imagen en el fondo del JLayeredPane (capa más baja)
         layeredPane.add(etiquetaImagen, Integer.valueOf(0));
 
-        // Instanciar los botones y ubicarlos en el layeredPane
         Botones botones = new Botones();
-        botones.getBotonCocaCola().setBounds(81, 102, 263, 70); // Posición y tamaño del botón 1
-        botones.getBotonSprite().setBounds(81, 177, 263, 72); // Posición y tamaño del botón 2
-        botones.getBotonFanta().setBounds(81, 256, 263, 76); // Posición y tamaño del botón 3
-        botones.getBotonSuper8().setBounds(81, 338, 263, 79); // Posición y tamaño del botón 4
-        botones.getBotonSnickers().setBounds(81, 423, 263, 70); // Posición y tamaño del botón 5
-        // Agregar los botones en una capa superior en el JLayeredPane
+        botones.getBotonCocaCola().setBounds(81, 102, 263, 70);
+        botones.getBotonSprite().setBounds(81, 177, 263, 72);
+        botones.getBotonFanta().setBounds(81, 256, 263, 76);
+        botones.getBotonSuper8().setBounds(81, 338, 263, 79);
+        botones.getBotonSnickers().setBounds(81, 423, 263, 70);
+
         layeredPane.add(botones.getBotonCocaCola(), Integer.valueOf(1));
         layeredPane.add(botones.getBotonSprite(), Integer.valueOf(1));
         layeredPane.add(botones.getBotonFanta(), Integer.valueOf(1));
         layeredPane.add(botones.getBotonSuper8(), Integer.valueOf(1));
         layeredPane.add(botones.getBotonSnickers(), Integer.valueOf(1));
 
-        // Agregar el layeredPane al panelIzquierdo
-        panelIzquierdo.add(layeredPane, BorderLayout.WEST);
+        panelIzquierdo.add(layeredPane, BorderLayout.CENTER);
 
         JPanel panelDerecho = new JPanel();
-        panelDerecho.setLayout(new GridLayout(2, 1)); // Divide el panel en 2 filas, 1 columna
-        panelDerecho.setPreferredSize(new Dimension(400, 500));
+        panelDerecho.setLayout(new GridLayout(3, 1)); // Dividir en 3 filas
 
-// Crear las dos secciones
-        JPanel panelSuperior = new JPanel();
-        panelSuperior.setBackground(Color.DARK_GRAY); // Color del panel superior
+        JPanel panelBotonesMonedas = new JPanel();
+        panelBotonesMonedas.setLayout(new GridLayout(2, 2)); // 2 filas y 2 columnas
+        panelBotonesMonedas.setPreferredSize(new Dimension(400, 200)); // Tamaño del panel de monedas
 
-        JPanel panelInferior = new JPanel();
-        panelInferior.setBackground(Color.GRAY); // Color del panel inferior
+        // Botones de monedas
+        JButton botonMoneda100 = botones.getBotonMoneda100();
+        JButton botonMoneda500 = botones.getBotonMoneda500();
+        JButton botonMoneda1000 = botones.getBotonMoneda1000();
+        JButton botonComprar = botones.getBotonComprar();
 
-// Agregar los paneles superior e inferior al panel derecho
-        panelDerecho.add(panelSuperior);
-        panelDerecho.add(panelInferior);
+        panelBotonesMonedas.add(botonMoneda100);
+        panelBotonesMonedas.add(botonMoneda500);
+        panelBotonesMonedas.add(botonMoneda1000);
+        panelBotonesMonedas.add(botonComprar);
 
-// Agregar los paneles al BorderLayout
+        panelDerecho.add(panelBotonesMonedas);
+
+        JPanel panelTotal = new JPanel();
+        panelTotal.setPreferredSize(new Dimension(400, 100));
+        panelTotal.setBackground(Color.GRAY);
+        JLabel totalLabel = new JLabel("Total de Monedas: 0");
+        totalLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        panelTotal.add(totalLabel);
+
+
+        panelDerecho.add(panelTotal);
+
+
         panel.add(panelIzquierdo, BorderLayout.WEST);
         panel.add(panelDerecho, BorderLayout.EAST);
 
-// Agregar el panel principal a la ventana
+
         this.add(panel);
     }
 }
+
 

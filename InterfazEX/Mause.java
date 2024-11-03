@@ -1,18 +1,31 @@
 package InterfazEX;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class Mause {
+public class Mause extends MouseAdapter {
+    private JButton boton;
+
     public Mause(JButton boton) {
-        // Agregar un ActionListener al botón
-        boton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Acción a realizar cuando el botón es presionado
-                System.out.println(boton.getText() + " fue presionado.");
-            }
-        });
+        this.boton = boton;
+        this.boton.addMouseListener(this);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        System.out.println(boton.getText() + " fue presionado con Mouse.");
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        boton.setBackground(Color.YELLOW);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        boton.setBackground(UIManager.getColor("Button.background"));
     }
 }
+
