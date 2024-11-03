@@ -21,11 +21,11 @@ public class Botones extends JPanel {
         this.setLayout(new GridLayout(2, 2, 10, 10));
         this.setBackground(Color.WHITE);
 
-        botonCocaCola = crearBotonConImagen("/Imagenes/coca_cola.png", "Coca-Cola", 260, 95);
-        botonSprite = crearBotonConImagen("/Imagenes/sprite.png", "Sprite", 200, 90);
-        botonFanta = crearBotonConImagen("/Imagenes/fanta.png", "Fanta", 260, 90);
+        botonCocaCola = crearBotonConImagen("/Imagenes/coca_cola.png", "Coca-Cola", 263, 88);
+        botonSprite = crearBotonConImagen("/Imagenes/sprite.png", "Sprite", 200, 80);
+        botonFanta = crearBotonConImagen("/Imagenes/fanta.png", "Fanta", 260, 93);
         botonSuper8 = crearBotonConImagen("/Imagenes/super8.png", "Super8", 260, 95);
-        botonSnickers = crearBotonConImagen("/Imagenes/snickers.png", "Snickers", 260, 95);
+        botonSnickers = crearBotonConImagen("/Imagenes/snickers.png", "Snickers", 260, 90);
 
         this.add(botonCocaCola);
         this.add(botonSprite);
