@@ -1,6 +1,6 @@
 package InterfazEX;
 
-public class PanelPrincipal extends JPanel {
+/*public class PanelPrincipal extends JPanel {
     private PanelComprador com;
     private PanelExpendedor exp;
     public PanelPrincipal () {
@@ -13,4 +13,4 @@ public class PanelPrincipal extends JPanel {
         com.paintComponent(g);
         exp.paintComponent(g);
     }
-}
+}*/

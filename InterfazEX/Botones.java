@@ -1,70 +1,83 @@
 package InterfazEX;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Botones {
-    private JButton boton1;
-    private JButton boton2;
-    private JButton boton3;
-    private JButton boton4;
+    private JButton botonCocaCola;
+    private JButton botonSprite;
+    private JButton botonFanta;
+    private JButton botonSuper8;
+    private JButton botonSnickers;
 
     public Botones() {
-        // Inicializar los botones
-        boton1 = new JButton("Botón 1");
-        boton2 = new JButton("Botón 2");
-        boton3 = new JButton("Botón 3");
-        boton4 = new JButton("Botón 4");
+        botonCocaCola = new JButton("Botón Coca-Cola");
+        botonSprite = new JButton("Botón Sprite");
+        botonFanta = new JButton("Botón Fanta");
+        botonSuper8 = new JButton("Botón Super8");
+        botonSnickers = new JButton("Botón Snickers");
 
         // Agregar ActionListeners a cada botón
         addActionListeners();
     }
 
     private void addActionListeners() {
-        boton1.addActionListener(new ActionListener() {
+        botonCocaCola.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(boton1.getText() + " fue presionado.");
+                System.out.println(botonCocaCola.getText() + " fue presionado.");
             }
         });
 
-        boton2.addActionListener(new ActionListener() {
+        botonSprite.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(boton2.getText() + " fue presionado.");
+                System.out.println(botonSprite.getText() + " fue presionado.");
             }
         });
 
-        boton3.addActionListener(new ActionListener() {
+        botonFanta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(boton3.getText() + " fue presionado.");
+                System.out.println(botonFanta.getText() + " fue presionado.");
             }
         });
 
-        boton4.addActionListener(new ActionListener() {
+        botonSuper8.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(boton4.getText() + " fue presionado.");
+                System.out.println(botonSuper8.getText() + " fue presionado.");
+            }
+        });
+
+        botonSnickers.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(botonSnickers.getText() + " fue presionado.");
             }
         });
     }
 
     // Métodos para obtener los botones
-    public JButton getBoton1() {
-        return boton1;
+    public JButton getBotonCocaCola() {
+        return botonCocaCola;
     }
 
-    public JButton getBoton2() {
-        return boton2;
+    public JButton getBotonSprite() {
+        return botonSprite;
     }
 
-    public JButton getBoton3() {
-        return boton3;
+    public JButton getBotonFanta() {
+        return botonFanta;
     }
 
-    public JButton getBoton4() {
-        return boton4;
+    public JButton getBotonSuper8() {
+        return botonSuper8;
+    }
+
+    public JButton getBotonSnickers() {
+        return botonSnickers;
     }
 }
