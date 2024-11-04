@@ -10,11 +10,11 @@ package MaquinaEX.Productos;
  * @author Joaquin
  */
 public enum Precio_Serie {
-    SPRITE(700, 1),
-    COCACOLA(800, 2),
-    FANTA(700, 3),
-    SUPER8(900, 4),
-    SNICKERS(1000, 5);
+    SPRITE(700, 0),
+    COCACOLA(800, 1),
+    FANTA(700, 2),
+    SUPER8(900, 3),
+    SNICKERS(1000, 4);
 
     private int valor;
     private int numSerie;
