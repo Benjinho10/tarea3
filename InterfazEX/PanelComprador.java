@@ -45,13 +45,11 @@ public class PanelComprador extends JPanel {
         boton1000.setPreferredSize(size);
         botonComprar.setPreferredSize(size);
 
-        // Agregar los botones al panel
         panelBotones.add(boton100);
         panelBotones.add(boton500);
         panelBotones.add(boton1000);
         panelBotones.add(botonComprar);
 
-        // Agregar elementos al panel
         add(panelBotones);
         add(totalLabel);
 
@@ -64,62 +62,67 @@ public class PanelComprador extends JPanel {
         botonComprar.addActionListener(e -> realizarCompra());
     }
 
-    // Método para agregar monedas
     public void agregarMoneda(int valor) {
-        totalMonedas += valor; // Incrementar el total de monedas
-        actualizarTotal(); // Actualizar la etiqueta
+        totalMonedas += valor;
+        actualizarTotal();
     }
 
-    // Método para actualizar la etiqueta del total
     private void actualizarTotal() {
         totalLabel.setText("Total de Monedas: " + totalMonedas);
     }
 
-    // Método para realizar la compra
     private void realizarCompra() {
         int numSerieProductoSeleccionado = panelExpendedor.getNumSerieProductoSeleccionado();
         String mensaje = "Error en la compra: ";
 
         // Verificar si se ha seleccionado un producto
         if (numSerieProductoSeleccionado == -1) {
-            mensaje += "No se ha seleccionado ningún producto.";
+            mensaje += "No se ha seleccionado ningún producto.\n";
+            mensaje += "Dinero devuelto: " + totalMonedas;
             JOptionPane.showMessageDialog(this, mensaje);
             reiniciar(); // Reiniciar solo las monedas
             return;
         }
 
         try {
-            // Intentar comprar el producto
             Producto productoComprado = expendedor.comprarProducto(totalMonedas, numSerieProductoSeleccionado);
             String mensajeConsumo = productoComprado.consumir();
             int vuelto = totalMonedas - productoComprado.getPrecio().getValor();
 
-            // Mostrar mensaje de compra realizada
             JOptionPane.showMessageDialog(this, "Compra realizada!\n" + mensajeConsumo + "\nVuelto: " + vuelto);
-            reiniciar(); // Reiniciar solo las monedas
+            reiniciar();
+            actualizarStockPanelExpendedor(); // Actualizar el stock después de una compra exitosa
 
         } catch (PagoIncorrectoException ex) {
-            mensaje += "Monto de pago inválido.";
+            mensaje += "Monto de pago inválido.\n";
+            mensaje += "Dinero devuelto: " + totalMonedas;
             JOptionPane.showMessageDialog(this, mensaje);
-            reiniciar(); // Reiniciar solo las monedas
+            reiniciar();
         } catch (NoHayProductoException ex) {
-            mensaje += "Producto agotado.";
+            mensaje += "Producto agotado.\n";
+            mensaje += "Dinero devuelto: " + totalMonedas;
             JOptionPane.showMessageDialog(this, mensaje);
-            reiniciar(); // Reiniciar solo las monedas
+            reiniciar();
         } catch (PagoInsuficienteException ex) {
-            mensaje += "Pago insuficiente para este producto.";
+            mensaje += "Pago insuficiente para este producto.\n";
+            mensaje += "Dinero devuelto: " + totalMonedas;
             JOptionPane.showMessageDialog(this, mensaje);
-            reiniciar(); // Reiniciar solo las monedas
+            reiniciar();
         }
     }
 
-    // Método para reiniciar solo las monedas
     public void reiniciar() {
         totalMonedas = 0; // Reiniciar total de monedas
         actualizarTotal(); // Actualizar la etiqueta del total
         panelExpendedor.reiniciarSeleccion();
     }
+
+    // Método para actualizar el stock en el panel expendedor
+    private void actualizarStockPanelExpendedor() {
+        panelExpendedor.actualizarStock();
+    }
 }
+
 
 
 

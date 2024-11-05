@@ -130,6 +130,9 @@ public class Expendedor {
         }
         return null;
     }
+    public int getStock(int numSerie) {
+        return stock.getOrDefault(numSerie, 0);
+    }
     /**
      * Método que devuelve una moneda del depósito de vuelto.
      *
