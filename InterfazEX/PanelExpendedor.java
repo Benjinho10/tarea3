@@ -9,8 +9,7 @@ public class PanelExpendedor extends JPanel {
     private Expendedor expendedor; // Objeto del expendedor
     private int numSerieProductoSeleccionado = -1; // Indica "sin producto seleccionado"
     private Botones botones; // Botones para la selección de productos
-
-    // Etiquetas para mostrar el stock
+    private JButton botonConsumir;
     private JLabel stockCocaCola;
     private JLabel stockSprite;
     private JLabel stockFanta;
@@ -22,15 +21,12 @@ public class PanelExpendedor extends JPanel {
         this.setPreferredSize(new Dimension(500, 700));
         this.setBackground(Color.LIGHT_GRAY);
 
-        // Añadir título
         this.add(new JLabel("Expendedor"), BorderLayout.NORTH);
         this.expendedor = expendedor; // Recibir el expendedor como parámetro
 
-        // Crear un JLayeredPane para los botones y la imagen
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(600, 500));
 
-        // Configuración de la imagen del expendedor
         ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/Imagenes/expendedortarea3.png"));
         Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(400, 500, Image.SCALE_SMOOTH);
         JLabel etiquetaImagen = new JLabel(new ImageIcon(imagenEscalada));
@@ -46,14 +42,18 @@ public class PanelExpendedor extends JPanel {
         botones.getBotonSuper8().setBounds(81, 338, 263, 79);
         botones.getBotonSnickers().setBounds(81, 423, 263, 70);
 
-        // Crear etiquetas de stock
+        botonConsumir = new JButton("Consumir");
+        botonConsumir.setBounds(81, 523, 263, 70);
+        botonConsumir.setEnabled(false); // Inicialmente deshabilitado
+        botonConsumir.addActionListener(e -> consumirProducto());
+
         stockCocaCola = new JLabel("Stock: " + expendedor.getStock(Precio_Serie.COCACOLA.getNumSerie()));
         stockSprite = new JLabel("Stock: " + expendedor.getStock(Precio_Serie.SPRITE.getNumSerie()));
         stockFanta = new JLabel("Stock: " + expendedor.getStock(Precio_Serie.FANTA.getNumSerie()));
         stockSuper8 = new JLabel("Stock: " + expendedor.getStock(Precio_Serie.SUPER8.getNumSerie()));
         stockSnickers = new JLabel("Stock: " + expendedor.getStock(Precio_Serie.SNICKERS.getNumSerie()));
 
-        // Cambiar posición de las etiquetas de stock
+
         stockCocaCola.setBounds(0, 102, 100, 20); // Cambiar valores según la posición deseada
         stockSprite.setBounds(0, 177, 100, 20);
         stockFanta.setBounds(0, 256, 100, 20);
@@ -78,7 +78,7 @@ public class PanelExpendedor extends JPanel {
         layeredPane.add(stockSuper8, Integer.valueOf(1));
         layeredPane.add(botones.getBotonSnickers(), Integer.valueOf(1));
         layeredPane.add(stockSnickers, Integer.valueOf(1));
-
+        layeredPane.add(botonConsumir, Integer.valueOf(1));
         // Añadir el layeredPane al panel principal
         this.add(layeredPane, BorderLayout.CENTER);
 
@@ -94,7 +94,10 @@ public class PanelExpendedor extends JPanel {
     private void seleccionarProducto(int numSerie) {
         this.numSerieProductoSeleccionado = numSerie;
         JOptionPane.showMessageDialog(this, "Producto seleccionado: " + Precio_Serie.values()[numSerie].name());
+        actualizarImagenBotonConsumir(numSerie);  // Llamada al método para actualizar la imagen
+        //botonConsumir.setEnabled(true); // Habilitar el botón consumir una vez que se ha seleccionado un producto
     }
+
 
     // Método para actualizar el stock después de una compra
     public void actualizarStock() {
@@ -105,19 +108,81 @@ public class PanelExpendedor extends JPanel {
         stockSnickers.setText("Stock: " + expendedor.getStock(Precio_Serie.SNICKERS.getNumSerie()));
     }
 
-    // Método para obtener el número de serie del producto seleccionado
-    public int getNumSerieProductoSeleccionado() {
-        return numSerieProductoSeleccionado;
+    private void consumirProducto() {
+        if (numSerieProductoSeleccionado != -1) {
+
+            // Cambiar la imagen del botón de acuerdo al producto seleccionado
+            String nombreImagen = "";
+            switch (numSerieProductoSeleccionado) {
+                case 0: nombreImagen = "/Imagenes/coca_cola2.png"; break;
+                case 1: nombreImagen = "/Imagenes/sprite2.png"; break;
+                case 2: nombreImagen = "/Imagenes/fanta2.png"; break;
+                case 3: nombreImagen = "/Imagenes/super8.png"; break;
+                case 4: nombreImagen = "/Imagenes/snickers2.png"; break;
+            }
+
+            // Asegúrate de que la imagen se carga correctamente
+            ImageIcon icono = new ImageIcon(getClass().getResource(nombreImagen));
+            botonConsumir.setIcon(new ImageIcon(icono.getImage().getScaledInstance(263, 70, Image.SCALE_SMOOTH)));
+
+            JOptionPane.showMessageDialog(this, "Producto consumido");
+
+            botonConsumir.setEnabled(false); // Desactivar el botón tras consumir
+            reiniciarSeleccion(); // Desmarcar el producto seleccionado
+            habilitarBotones(); // Habilitar botones para selección nuevamente
+        }
     }
 
     // Método para reiniciar la selección de producto
     public void reiniciarSeleccion() {
         numSerieProductoSeleccionado = -1;
+        botonConsumir.setEnabled(false); // Deshabilitar el botón
     }
-
+    public int getNumSerieProductoSeleccionado() {
+        return numSerieProductoSeleccionado;
+    }
     // Método para obtener el expendedor
     public Expendedor getExpendedor() {
         return expendedor;
     }
+
+    public void mostrarBotonConsumir() {
+        botonConsumir.setEnabled(true);
+    }
+
+    public void actualizarImagenBotonConsumir(int numSerieProducto) {
+        String nombreImagen = "";
+        switch (numSerieProducto) {
+            case 0: nombreImagen = "/Imagenes/coca_cola2.png"; break;
+            case 1: nombreImagen = "/Imagenes/sprite2.png"; break;
+            case 2: nombreImagen = "/Imagenes/fanta2.png"; break;
+            case 3: nombreImagen = "/Imagenes/super82.png"; break;
+            case 4: nombreImagen = "/Imagenes/snickers2.png"; break;
+        }
+        ImageIcon icono = new ImageIcon(getClass().getResource(nombreImagen));
+        botonConsumir.setIcon(new ImageIcon(icono.getImage().getScaledInstance(263, 70, Image.SCALE_SMOOTH)));
+    }
+
+    public void deshabilitarBotonesProductos() {
+        botones.getBotonCocaCola().setEnabled(false);
+        botones.getBotonSprite().setEnabled(false);
+        botones.getBotonFanta().setEnabled(false);
+        botones.getBotonSuper8().setEnabled(false);
+        botones.getBotonSnickers().setEnabled(false);
+    }
+
+    private void habilitarBotones() {
+        botones.getBotonCocaCola().setEnabled(true);
+        botones.getBotonSprite().setEnabled(true);
+        botones.getBotonFanta().setEnabled(true);
+        botones.getBotonSuper8().setEnabled(true);
+        botones.getBotonSnickers().setEnabled(true);
+
+        // Rehabilitar los botones de monedas
+        botones.getBotonMoneda100().setEnabled(true);
+        botones.getBotonMoneda500().setEnabled(true);
+        botones.getBotonMoneda1000().setEnabled(true);
+    }
 }
+
 

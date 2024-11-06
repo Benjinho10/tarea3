@@ -73,9 +73,10 @@ public class PanelComprador extends JPanel {
 
     private void realizarCompra() {
         int numSerieProductoSeleccionado = panelExpendedor.getNumSerieProductoSeleccionado();
+
         String mensaje = "Error en la compra: ";
 
-        // Verificar si se ha seleccionado un producto
+
         if (numSerieProductoSeleccionado == -1) {
             mensaje += "No se ha seleccionado ningún producto.\n";
             mensaje += "Dinero devuelto: " + totalMonedas;
@@ -88,11 +89,13 @@ public class PanelComprador extends JPanel {
             Producto productoComprado = expendedor.comprarProducto(totalMonedas, numSerieProductoSeleccionado);
             String mensajeConsumo = productoComprado.consumir();
             int vuelto = totalMonedas - productoComprado.getPrecio().getValor();
+            reiniciar2();
+            // Después de una compra exitosa, habilitar el botón de consumir
+            panelExpendedor.mostrarBotonConsumir();
 
             JOptionPane.showMessageDialog(this, "Compra realizada!\n" + mensajeConsumo + "\nVuelto: " + vuelto);
-            reiniciar();
-            actualizarStockPanelExpendedor(); // Actualizar el stock después de una compra exitosa
 
+            actualizarStockPanelExpendedor(); // Actualizar el stock después de una compra exitosa
         } catch (PagoIncorrectoException ex) {
             mensaje += "Monto de pago inválido.\n";
             mensaje += "Dinero devuelto: " + totalMonedas;
@@ -116,7 +119,10 @@ public class PanelComprador extends JPanel {
         actualizarTotal(); // Actualizar la etiqueta del total
         panelExpendedor.reiniciarSeleccion();
     }
-
+    public void reiniciar2(){
+        totalMonedas = 0;
+        actualizarTotal();
+    }
     // Método para actualizar el stock en el panel expendedor
     private void actualizarStockPanelExpendedor() {
         panelExpendedor.actualizarStock();

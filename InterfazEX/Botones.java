@@ -11,7 +11,7 @@ public class Botones extends JPanel {
     private JButton botonFanta;
     private JButton botonSuper8;
     private JButton botonSnickers;
-
+    private JButton botonConsumir;
     private JButton botonMoneda100;
     private JButton botonMoneda500;
     private JButton botonMoneda1000;
@@ -27,6 +27,11 @@ public class Botones extends JPanel {
         botonSuper8 = crearBotonConImagen("/Imagenes/super8.png", "Super8", 260, 95);
         botonSnickers = crearBotonConImagen("/Imagenes/snickers.png", "Snickers", 260, 90);
 
+        botonConsumir = new JButton("Consumir");
+        botonConsumir.setBounds(81, 523, 263, 70);
+        botonConsumir.setEnabled(false); // Inicialmente deshabilitado
+
+        this.add(botonConsumir);
         this.add(botonCocaCola);
         this.add(botonSprite);
         this.add(botonFanta);
@@ -108,5 +113,8 @@ public class Botones extends JPanel {
 
     public JButton getBotonComprar() {
         return botonComprar;
+    }
+    public JButton getBotonConsumir() {
+        return botonConsumir;
     }
 }
