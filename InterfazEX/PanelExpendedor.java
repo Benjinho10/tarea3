@@ -1,13 +1,17 @@
 package InterfazEX;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import MaquinaEX.Exprendedor.Expendedor;
 import MaquinaEX.Productos.Precio_Serie;
-
+/**
+ * La clase PanelExpendedor representa la interfaz gráfica del expendedor de productos,
+ * donde el usuario puede seleccionar diferentes productos, ver el stock disponible y consumir productos.
+ *
+ * @author Benjamin
+ * @author Joaquin
+ *
+ */
 public class PanelExpendedor extends JPanel {
     private Expendedor expendedor; // Objeto del expendedor
     private int numSerieProductoSeleccionado = -1; // Indica "sin producto seleccionado"
@@ -19,6 +23,15 @@ public class PanelExpendedor extends JPanel {
     private JLabel stockSuper8;
     private JLabel stockSnickers;
     private PanelComprador panelComprador;
+
+    /**
+     * Constructor de la clase PanelExpendedor.
+     * Inicializa los componentes gráficos, los botones para seleccionar productos, las etiquetas de stock
+     * y configura las acciones de los botones.
+     *
+     * @param expendedor El expendedor que contiene los productos y gestiona el stock.
+     * @param panelComprador El panel del comprador que interactúa con el expendedor.
+     */
 
     public PanelExpendedor(Expendedor expendedor, PanelComprador panelComprador) {
         this.setLayout(new BorderLayout());
@@ -58,8 +71,8 @@ public class PanelExpendedor extends JPanel {
         stockSuper8 = new JLabel("Stock: " + expendedor.getStock(Precio_Serie.SUPER8.getNumSerie()));
         stockSnickers = new JLabel("Stock: " + expendedor.getStock(Precio_Serie.SNICKERS.getNumSerie()));
 
-
-        stockCocaCola.setBounds(0, 102, 100, 20); // Cambiar valores según la posición deseada
+        // Cambiar valores según la posición deseada
+        stockCocaCola.setBounds(0, 102, 100, 20);
         stockSprite.setBounds(0, 177, 100, 20);
         stockFanta.setBounds(0, 256, 100, 20);
         stockSuper8.setBounds(0, 338, 100, 20);
@@ -99,19 +112,30 @@ public class PanelExpendedor extends JPanel {
         });
     }
 
+    /**
+     * Establece el panel del comprador que interactúa con el expendedor.
+     *
+     * @param panelComprador El panel del comprador.
+     */
     public void setPanelComprador(PanelComprador panelComprador) {
         this.panelComprador = panelComprador;
     }
-    // Método para seleccionar un producto
+
+    /**
+     * Permite seleccionar un producto basado en su número de serie.
+     * Al seleccionar un producto, se muestra un mensaje indicando cuál ha sido seleccionado.
+     *
+     * @param numSerie El número de serie del producto seleccionado.
+     */
     private void seleccionarProducto(int numSerie) {
         this.numSerieProductoSeleccionado = numSerie;
         JOptionPane.showMessageDialog(this, "Producto seleccionado: " + Precio_Serie.values()[numSerie].name());
-        //actualizarImagenBotonConsumir(numSerie);  // Llamada al método para actualizar la imagen
-        //botonConsumir.setEnabled(true); // Habilitar el botón consumir una vez que se ha seleccionado un producto
     }
 
-
-    // Método para actualizar el stock después de una compra
+    /**
+     * Actualiza la información del stock de los productos en la interfaz a tiempo real
+     * de la compra del producto.
+     */
     public void actualizarStock() {
         stockCocaCola.setText("Stock: " + expendedor.getStock(Precio_Serie.COCACOLA.getNumSerie()));
         stockSprite.setText("Stock: " + expendedor.getStock(Precio_Serie.SPRITE.getNumSerie()));
@@ -120,6 +144,10 @@ public class PanelExpendedor extends JPanel {
         stockSnickers.setText("Stock: " + expendedor.getStock(Precio_Serie.SNICKERS.getNumSerie()));
     }
 
+    /**
+     * Simula el consumo del producto seleccionado. Se desactiva el botón de consumir
+     * y se reinicia la selección de producto.
+     */
     private void consumirProducto() {
         if (numSerieProductoSeleccionado != -1) {
             JOptionPane.showMessageDialog(this, "Producto consumido");
@@ -131,28 +159,44 @@ public class PanelExpendedor extends JPanel {
             botonConsumir.setIcon(null);
         }
     }
-
-    // Método para reiniciar la selección de producto
+    /**
+     * Reinicia la selección del producto.
+     */
     public void reiniciarSeleccion() {
         numSerieProductoSeleccionado = -1;
-        botonConsumir.setEnabled(false); // Deshabilitar el botón
+        botonConsumir.setEnabled(false);
     }
+    /**
+     * Getter que obtiene el número de serie del producto seleccionado.
+     *
+     * @return El número de serie del producto.
+     */
     public int getNumSerieProductoSeleccionado() {
         return numSerieProductoSeleccionado;
     }
-    // Método para obtener el expendedor
+    /**
+     * Getter que obtiene la instancia del expendedor
+     *
+     * @return El objeto expendedor
+     */
     public Expendedor getExpendedor() {
         return expendedor;
     }
-
+    /**
+     * Habilita el boton consumir.
+     */
     public void mostrarBotonConsumir() {
         botonConsumir.setEnabled(true);
     }
-
+    /**
+     * Actualiza la imagen del botón de consumir según el producto seleccionado.
+     *
+     * @param numSerieProducto El número de serie del producto seleccionado.
+     */
     public void actualizarImagenBotonConsumir(int numSerieProducto) {
         String nombreImagen = "";
-        int ancho = 130; // Valor por defecto
-        int alto = 55;  // Valor por defecto
+        int ancho = 130;
+        int alto = 55;
         ImageIcon icono = null;
 
         switch (numSerieProducto) {
@@ -165,7 +209,7 @@ public class PanelExpendedor extends JPanel {
             case 1:
                 nombreImagen = "/Imagenes/coca_cola2.png";
                 ancho = 100;
-                alto = 90; // Tamaño más grande
+                alto = 90;
                 icono = new ImageIcon(getClass().getResource(nombreImagen));
                 break;
             case 2:
@@ -183,15 +227,15 @@ public class PanelExpendedor extends JPanel {
             case 4:
                 nombreImagen = "/Imagenes/snickers2.png";
                 ancho = 110;
-                alto = 45; // Tamaño más pequeño
+                alto = 45;
                 icono = new ImageIcon(getClass().getResource(nombreImagen));
                 break;
         }
-
-        // Redimensionar la imagen
         botonConsumir.setIcon(new ImageIcon(icono.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
     }
-
+    /**
+     * Deshabilita todos los botones relacionados con productos y monedas.
+     */
     public void deshabilitarBotonesProductos() {
         botones.getBotonCocaCola().setEnabled(false);
         botones.getBotonSprite().setEnabled(false);
@@ -203,7 +247,9 @@ public class PanelExpendedor extends JPanel {
         botones.getBotonMoneda1000().setEnabled(false);
         botones.getBotonComprar().setEnabled(false);
     }
-
+    /**
+     * Habilita los botones de selección de productos.
+     */
     private void habilitarBotones() {
         botones.getBotonCocaCola().setEnabled(true);
         botones.getBotonSprite().setEnabled(true);

@@ -1,5 +1,4 @@
 package InterfazEX;
-
 import javax.swing.*;
 import java.awt.*;
 import MaquinaEX.Exprendedor.Expendedor;
@@ -8,14 +7,30 @@ import MaquinaEX.Excepciones.PagoIncorrectoException;
 import MaquinaEX.Excepciones.NoHayProductoException;
 import MaquinaEX.Excepciones.PagoInsuficienteException;
 import MaquinaEX.Productos.Producto;
-
+/**
+ * PanelComprador es un panel que permite al comprador interactuar con un expendedor
+ * de productos, agregar monedas, realizar compras y manejar las excepciones relacionadas con el pago.
+ *
+ * <p>La interfaz gráfica incluye botones para agregar monedas (100, 500, 1000), un botón para realizar la compra,
+ * y una etiqueta que muestra el total de monedas disponibles para la compra.
+ *
+ * @author Benjamin
+ * @author Joaquin
+ */
 public class PanelComprador extends JPanel {
-    private int totalMonedas; // Total de monedas
-    private JLabel totalLabel; // Etiqueta para mostrar el total de monedas
-    private Expendedor expendedor; // Objeto del expendedor
-    private Botones botones; // Botones para la compra
-    private PanelExpendedor panelExpendedor; // Referencia al PanelExpendedor
-
+    private int totalMonedas;
+    private JLabel totalLabel;
+    private Expendedor expendedor;
+    private Botones botones;
+    private PanelExpendedor panelExpendedor;
+    /**
+     * Constructor de la clase PanelComprador.
+     * Inicializa los componentes de la interfaz y establece las conexiones con el expendedor
+     * y el panel expendedor.
+     *
+     * @param expendedor El expendedor que gestiona las compras de productos
+     * @param panelExpendedor El panel del expendedor que muestra los productos
+     */
     public PanelComprador(Expendedor expendedor, PanelExpendedor panelExpendedor) {
         this.expendedor = expendedor; // Recibir el expendedor como parámetro
         this.panelExpendedor = panelExpendedor; // Referencia a PanelExpendedor
@@ -61,19 +76,33 @@ public class PanelComprador extends JPanel {
         // ActionListener para el botón de compra
         botonComprar.addActionListener(e -> realizarCompra());
     }
+    /**
+     * Establece el panel expendedor al que se debe hacer referencia en este panel.
+     *
+     * @param panelExpendedor El panel expendedor que se debe asociar
+     */
     public void setPanelExpendedor(PanelExpendedor panelExpendedor) {
         this.panelExpendedor = panelExpendedor;
     }
-
+    /**
+     * Agrega una moneda al total de monedas insertadas.
+     *
+     * @param valor El valor de la moneda a agregar
+     */
     public void agregarMoneda(int valor) {
         totalMonedas += valor;
         actualizarTotal();
     }
-
+    /**
+     * Actualiza la etiqueta que muestra el total de monedas insertadas.
+     */
     private void actualizarTotal() {
         totalLabel.setText("Total de Monedas: " + totalMonedas);
     }
-
+    /**
+     * Realiza la compra del producto seleccionado si el pago es correcto.
+     * Muestra mensajes de error en caso de fallos como pago insuficiente o producto agotado.
+     */
     private void realizarCompra() {
         int numSerieProductoSeleccionado = panelExpendedor.getNumSerieProductoSeleccionado();
 
@@ -119,7 +148,9 @@ public class PanelComprador extends JPanel {
             reiniciar();
         }
     }
-
+    /**
+     * Reinicia el total de monedas a cero y actualiza la etiqueta.
+     */
     public void reiniciar() {
         totalMonedas = 0; // Reiniciar total de monedas
         actualizarTotal(); // Actualizar la etiqueta del total
@@ -129,10 +160,13 @@ public class PanelComprador extends JPanel {
         totalMonedas = 0;
         actualizarTotal();
     }
-    // Método para actualizar el stock en el panel expendedor
+    /**
+     * Actualiza el stock de productos en el panel expendedor después de una compra exitosa.
+     */
     private void actualizarStockPanelExpendedor() {
         panelExpendedor.actualizarStock();
     }
+
     public void deshabilitarBotonesProductos2() {
         botones.getBotonMoneda100().setEnabled(false);
         botones.getBotonMoneda500().setEnabled(false);
@@ -140,7 +174,6 @@ public class PanelComprador extends JPanel {
         botones.getBotonComprar().setEnabled(false);
 
     }
-
     public void habilitarBotones2(){
         botones.getBotonMoneda100().setEnabled(true);
         botones.getBotonMoneda500().setEnabled(true);

@@ -130,6 +130,13 @@ public class Expendedor {
         }
         return null;
     }
+    /**
+     * Método para obtener la cantidad de un producto en stock.
+     *
+     * @param numSerie El número de serie del producto.
+     * @return La cantidad de productos disponibles con el número de serie dado.
+     */
+
     public int getStock(int numSerie) {
         return stock.getOrDefault(numSerie, 0);
     }
@@ -141,13 +148,17 @@ public class Expendedor {
     public Moneda getVuelto() {
         return depositoMonedasVuelto.get(); // Retornar la moneda del vuelto
     }
-
+    /**
+     * Método para reiniciar el stock de productos en el expendedor.
+     *
+     * Este método pone el stock de cada producto a un valor dado (esta caso 5 productos)
+     */
     public void reiniciarStock() {
-        stock.put(0, 5);  // Producto con ID 1 tiene 5 unidades
+        stock.put(0, 5);
         stock.put(1, 5);
-        stock.put(2, 5);  // Producto con ID 1 tiene 5 unidades
+        stock.put(2, 5);
         stock.put(3, 5);
-        stock.put(4, 5);  // Producto con ID 1 tiene 5 unidades
+        stock.put(4, 5);
     }
 
 }

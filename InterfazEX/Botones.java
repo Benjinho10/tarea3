@@ -1,11 +1,17 @@
 package InterfazEX;
-
-import MaquinaEX.Exprendedor.Expendedor;
-
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
-
+/**
+ * Clase que representa un panel de botones para una interfaz gráfica.
+ * Este panel incluye botones para seleccionar los diferentes productos,
+ * para insertar monedas, para consumir un producto y para restablecer el stock de productos.
+ * Los botones tienen imágenes asociadas y se agregan a un contenedor con un diseño de cuadrícula.
+ *
+ * @author Joaquin
+ * @author Benjamin
+ *
+ */
 public class Botones extends JPanel {
 
     private JButton botonCocaCola;
@@ -19,11 +25,16 @@ public class Botones extends JPanel {
     private JButton botonMoneda1000;
     private JButton botonComprar;
     private JButton botonReinciarStock;
-
+    /**
+     * Constructor que inicializa el panel de botones.
+     * Configura el diseño, los botones con imágenes y sus respectivos tamaños.
+     * Agrega los botones al panel y asigna los eventos correspondientes.
+     */
     public Botones() {
         this.setLayout(new GridLayout(2, 2, 10, 10));
         this.setBackground(Color.WHITE);
 
+        // Creación de botones con imágenes y texto
         botonCocaCola = crearBotonConImagen("/Imagenes/coca_cola.png", "Coca-Cola", 290, 90);
         botonSprite = crearBotonConImagen("/Imagenes/sprite.png", "Sprite", 200, 80);
         botonFanta = crearBotonConImagen("/Imagenes/fanta.png", "Fanta", 260, 93);
@@ -36,6 +47,7 @@ public class Botones extends JPanel {
 
         botonReinciarStock = new JButton("Restocking");
 
+        // Agregar los botones al panel
         this.add(botonConsumir);
         this.add(botonReinciarStock);
         this.add(botonCocaCola);
@@ -51,7 +63,9 @@ public class Botones extends JPanel {
 
         agregarListeners();
     }
-
+    /**
+     * Método que agrega los escuchadores de eventos de ratón a los botones.
+     */
     private void agregarListeners() {
         new Mause(botonCocaCola);
         new Mause(botonSprite);
@@ -65,7 +79,15 @@ public class Botones extends JPanel {
         new Mause(botonReinciarStock);
 
     }
-
+    /**
+     * Método privado que crea un botón con una imagen escalada y un texto.
+     *
+     * @param rutaImagen Ruta del archivo de imagen para el botón.
+     * @param texto      Texto que se mostrará debajo de la imagen.
+     * @param ancho      El ancho que debe tener la imagen.
+     * @param alto       El alto que debe tener la imagen.
+     * @return Un botón con la imagen escalada y el texto correspondiente.
+     */
     private JButton crearBotonConImagen(String rutaImagen, String texto, int ancho, int alto) {
         ImageIcon icono = null;
         URL imagenURL = getClass().getResource(rutaImagen);
@@ -87,6 +109,7 @@ public class Botones extends JPanel {
     }
 
     // Métodos para obtener los botones
+
     public JButton getBotonCocaCola() {
         return botonCocaCola;
     }
