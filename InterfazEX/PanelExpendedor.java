@@ -2,10 +2,11 @@ package InterfazEX;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import MaquinaEX.Exprendedor.Expendedor;
 import MaquinaEX.Productos.Precio_Serie;
-import java.util.HashMap;
-import java.util.Map;
 
 public class PanelExpendedor extends JPanel {
     private Expendedor expendedor; // Objeto del expendedor
@@ -46,7 +47,7 @@ public class PanelExpendedor extends JPanel {
         botones.getBotonSnickers().setBounds(81, 423, 263, 70);
 
         botonConsumir = new JButton("");
-        botonConsumir.setBounds(90, 500, 240, 75);
+        botonConsumir.setBounds(100, 520, 227, 50);
         botonConsumir.setEnabled(false);
         botonConsumir.addActionListener(e -> consumirProducto());
         botones.getBotonReinciarStock().setBounds(0,0,500,30);
@@ -150,15 +151,45 @@ public class PanelExpendedor extends JPanel {
 
     public void actualizarImagenBotonConsumir(int numSerieProducto) {
         String nombreImagen = "";
+        int ancho = 130; // Valor por defecto
+        int alto = 55;  // Valor por defecto
+        ImageIcon icono = null;
+
         switch (numSerieProducto) {
-            case 0: nombreImagen = "/Imagenes/sprite2.png"; break;
-            case 1: nombreImagen = "/Imagenes/coca_cola2.png"; break;
-            case 2: nombreImagen = "/Imagenes/fanta2.png"; break;
-            case 3: nombreImagen = "/Imagenes/super82.png"; break;
-            case 4: nombreImagen = "/Imagenes/snickers2.png"; break;
+            case 0:
+                nombreImagen = "/Imagenes/sprite2.png";
+                ancho = 100;
+                alto = 90;
+                icono = new ImageIcon(getClass().getResource(nombreImagen));
+                break;
+            case 1:
+                nombreImagen = "/Imagenes/coca_cola2.png";
+                ancho = 100;
+                alto = 90; // Tamaño más grande
+                icono = new ImageIcon(getClass().getResource(nombreImagen));
+                break;
+            case 2:
+                nombreImagen = "/Imagenes/fanta2.png";
+                ancho = 100;
+                alto = 100;
+                icono = new ImageIcon(getClass().getResource(nombreImagen));
+                break;
+            case 3:
+                nombreImagen = "/Imagenes/super82.png";
+                ancho = 140;
+                alto = 60;
+                icono = new ImageIcon(getClass().getResource(nombreImagen));
+                break;
+            case 4:
+                nombreImagen = "/Imagenes/snickers2.png";
+                ancho = 110;
+                alto = 45; // Tamaño más pequeño
+                icono = new ImageIcon(getClass().getResource(nombreImagen));
+                break;
         }
-        ImageIcon icono = new ImageIcon(getClass().getResource(nombreImagen));
-        botonConsumir.setIcon(new ImageIcon(icono.getImage().getScaledInstance(170, 75, Image.SCALE_SMOOTH)));
+
+        // Redimensionar la imagen
+        botonConsumir.setIcon(new ImageIcon(icono.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
     }
 
     public void deshabilitarBotonesProductos() {
