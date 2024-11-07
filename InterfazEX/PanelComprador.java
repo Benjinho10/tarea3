@@ -61,6 +61,9 @@ public class PanelComprador extends JPanel {
         // ActionListener para el botón de compra
         botonComprar.addActionListener(e -> realizarCompra());
     }
+    public void setPanelExpendedor(PanelExpendedor panelExpendedor) {
+        this.panelExpendedor = panelExpendedor;
+    }
 
     public void agregarMoneda(int valor) {
         totalMonedas += valor;
@@ -90,6 +93,9 @@ public class PanelComprador extends JPanel {
             String mensajeConsumo = productoComprado.consumir();
             int vuelto = totalMonedas - productoComprado.getPrecio().getValor();
             reiniciar2();
+            panelExpendedor.actualizarImagenBotonConsumir(numSerieProductoSeleccionado);
+            panelExpendedor.deshabilitarBotonesProductos();
+            deshabilitarBotonesProductos2();
             // Después de una compra exitosa, habilitar el botón de consumir
             panelExpendedor.mostrarBotonConsumir();
 
@@ -126,6 +132,20 @@ public class PanelComprador extends JPanel {
     // Método para actualizar el stock en el panel expendedor
     private void actualizarStockPanelExpendedor() {
         panelExpendedor.actualizarStock();
+    }
+    public void deshabilitarBotonesProductos2() {
+        botones.getBotonMoneda100().setEnabled(false);
+        botones.getBotonMoneda500().setEnabled(false);
+        botones.getBotonMoneda1000().setEnabled(false);
+        botones.getBotonComprar().setEnabled(false);
+
+    }
+
+    public void habilitarBotones2(){
+        botones.getBotonMoneda100().setEnabled(true);
+        botones.getBotonMoneda500().setEnabled(true);
+        botones.getBotonMoneda1000().setEnabled(true);
+        botones.getBotonComprar().setEnabled(true);
     }
 }
 

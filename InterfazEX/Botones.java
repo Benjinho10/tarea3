@@ -38,10 +38,10 @@ public class Botones extends JPanel {
         this.add(botonSuper8);
         this.add(botonSnickers);
 
-        botonMoneda100 = crearBotonConImagen("/Imagenes/moneda100.png", "100", 50, 50);
-        botonMoneda500 = crearBotonConImagen("/Imagenes/moneda500.png", "500", 50, 50);
-        botonMoneda1000 = crearBotonConImagen("/Imagenes/moneda1000.png", "1000", 50, 50);
-        botonComprar = crearBotonConImagen("/Imagenes/comprar.png", "Comprar", 50, 50);
+        botonMoneda100 = crearBotonConImagen("/Imagenes/moneda100.png", "100", 100, 100);
+        botonMoneda500 = crearBotonConImagen("/Imagenes/moneda500.png", "500", 170, 120);
+        botonMoneda1000 = crearBotonConImagen("/Imagenes/moneda1000.png", "1000", 175, 70);
+        botonComprar = crearBotonConImagen("/Imagenes/comprar.png", "Comprar", 150, 150);
 
         agregarListeners();
     }
