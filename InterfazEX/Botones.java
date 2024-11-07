@@ -1,5 +1,7 @@
 package InterfazEX;
 
+import MaquinaEX.Exprendedor.Expendedor;
+
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
@@ -16,12 +18,13 @@ public class Botones extends JPanel {
     private JButton botonMoneda500;
     private JButton botonMoneda1000;
     private JButton botonComprar;
+    private JButton botonReinciarStock;
 
     public Botones() {
         this.setLayout(new GridLayout(2, 2, 10, 10));
         this.setBackground(Color.WHITE);
 
-        botonCocaCola = crearBotonConImagen("/Imagenes/coca_cola.png", "Coca-Cola", 263, 88);
+        botonCocaCola = crearBotonConImagen("/Imagenes/coca_cola.png", "Coca-Cola", 290, 90);
         botonSprite = crearBotonConImagen("/Imagenes/sprite.png", "Sprite", 200, 80);
         botonFanta = crearBotonConImagen("/Imagenes/fanta.png", "Fanta", 260, 93);
         botonSuper8 = crearBotonConImagen("/Imagenes/super8.png", "Super8", 260, 95);
@@ -29,9 +32,12 @@ public class Botones extends JPanel {
 
         botonConsumir = new JButton("Consumir");
         botonConsumir.setBounds(81, 523, 263, 70);
-        botonConsumir.setEnabled(false); // Inicialmente deshabilitado
+        botonConsumir.setEnabled(false);
+
+        botonReinciarStock = new JButton("Restocking");
 
         this.add(botonConsumir);
+        this.add(botonReinciarStock);
         this.add(botonCocaCola);
         this.add(botonSprite);
         this.add(botonFanta);
@@ -56,6 +62,8 @@ public class Botones extends JPanel {
         new Mause(botonMoneda500);
         new Mause(botonMoneda1000);
         new Mause(botonComprar);
+        new Mause(botonReinciarStock);
+
     }
 
     private JButton crearBotonConImagen(String rutaImagen, String texto, int ancho, int alto) {
@@ -114,6 +122,11 @@ public class Botones extends JPanel {
     public JButton getBotonComprar() {
         return botonComprar;
     }
+
+    public JButton getBotonReinciarStock() {
+        return botonReinciarStock;
+    }
+
     public JButton getBotonConsumir() {
         return botonConsumir;
     }

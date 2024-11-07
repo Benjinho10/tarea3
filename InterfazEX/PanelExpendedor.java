@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import MaquinaEX.Exprendedor.Expendedor;
 import MaquinaEX.Productos.Precio_Serie;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PanelExpendedor extends JPanel {
     private Expendedor expendedor; // Objeto del expendedor
@@ -45,8 +47,9 @@ public class PanelExpendedor extends JPanel {
 
         botonConsumir = new JButton("");
         botonConsumir.setBounds(90, 500, 240, 75);
-        botonConsumir.setEnabled(false); // Inicialmente deshabilitado
+        botonConsumir.setEnabled(false);
         botonConsumir.addActionListener(e -> consumirProducto());
+        botones.getBotonReinciarStock().setBounds(0,0,500,30);
 
         stockCocaCola = new JLabel("Stock: " + expendedor.getStock(Precio_Serie.COCACOLA.getNumSerie()));
         stockSprite = new JLabel("Stock: " + expendedor.getStock(Precio_Serie.SPRITE.getNumSerie()));
@@ -80,7 +83,7 @@ public class PanelExpendedor extends JPanel {
         layeredPane.add(botones.getBotonSnickers(), Integer.valueOf(1));
         layeredPane.add(stockSnickers, Integer.valueOf(1));
         layeredPane.add(botonConsumir, Integer.valueOf(1));
-        // Añadir el layeredPane al panel principal
+        layeredPane.add(botones.getBotonReinciarStock(), Integer.valueOf(1));
         this.add(layeredPane, BorderLayout.CENTER);
 
         // Asignar ActionListeners a los botones de productos
@@ -89,7 +92,12 @@ public class PanelExpendedor extends JPanel {
         botones.getBotonFanta().addActionListener(e -> seleccionarProducto(Precio_Serie.FANTA.getNumSerie()));
         botones.getBotonSuper8().addActionListener(e -> seleccionarProducto(Precio_Serie.SUPER8.getNumSerie()));
         botones.getBotonSnickers().addActionListener(e -> seleccionarProducto(Precio_Serie.SNICKERS.getNumSerie()));
+        botones.getBotonReinciarStock().addActionListener(e -> {
+            expendedor.reiniciarStock();
+            actualizarStock();
+        });
     }
+
     public void setPanelComprador(PanelComprador panelComprador) {
         this.panelComprador = panelComprador;
     }
@@ -171,7 +179,6 @@ public class PanelExpendedor extends JPanel {
         botones.getBotonFanta().setEnabled(true);
         botones.getBotonSuper8().setEnabled(true);
         botones.getBotonSnickers().setEnabled(true);
-
     }
 }
 

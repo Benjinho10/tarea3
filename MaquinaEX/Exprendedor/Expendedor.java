@@ -35,7 +35,7 @@ public class Expendedor {
     public Expendedor(int cantidadPorProducto) {
         depositoProducto = new Deposito<>();
         depositoMonedasVuelto = new Deposito<>();
-        stock = new HashMap<>(); // Inicializar el mapa de stock
+        this.stock = new HashMap<>(); // Inicializar el mapa de stock
 
         // Añadir productos y stock inicial
         for (int i = 0; i < cantidadPorProducto; i++) {
@@ -141,4 +141,13 @@ public class Expendedor {
     public Moneda getVuelto() {
         return depositoMonedasVuelto.get(); // Retornar la moneda del vuelto
     }
+
+    public void reiniciarStock() {
+        stock.put(0, 5);  // Producto con ID 1 tiene 5 unidades
+        stock.put(1, 5);
+        stock.put(2, 5);  // Producto con ID 1 tiene 5 unidades
+        stock.put(3, 5);
+        stock.put(4, 5);  // Producto con ID 1 tiene 5 unidades
+    }
+
 }
